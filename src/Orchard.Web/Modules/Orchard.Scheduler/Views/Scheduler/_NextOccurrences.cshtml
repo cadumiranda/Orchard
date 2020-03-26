@@ -1,0 +1,18 @@
+﻿@model Orchard.Scheduler.ViewModels.NextOccurencesViewModel
+
+@if (!string.IsNullOrEmpty(Model.Error))
+{
+    <h2>@T("Error parsing expression:") @Model.Error</h2>
+}
+else
+{    
+    var occurrences = Model.NextOccurrences.Count() > 10 ? Model.NextOccurrences.Take(10) : Model.NextOccurrences;
+
+    <h2>@T("The next {0} occurrences are:", occurrences.Count())</h2>
+    <ol>
+        @foreach (var occurrence in occurrences)
+        {
+            <li>@occurrence</li>
+        }
+    </ol>
+}

@@ -1,0 +1,9 @@
+Name: Scheduler
+AntiForgery: enabled
+Author: bcarey, j3ffb
+Website: https://bitbucket.org/j3ffb/orchard.scheduler
+Version: 1.8.1
+OrchardVersion: 1.8
+Description: Recurring Scheduled Tasks which fire a workflow signal. Many thanks to http://www.raboof.com/projects/ncrontab/ for cron expression parsing.
+Dependencies: Orchard.Workflows, Orchard.TaskLease
+Category: Scheduling

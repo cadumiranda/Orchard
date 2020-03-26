@@ -1,0 +1,60 @@
+﻿td.status-disabled  
+{
+    background: transparent url(../Content/Images/offline.gif) no-repeat right;
+}
+
+td.status-enabled  
+{
+    background: transparent url(../Content/Images/online.gif) no-repeat right;
+}
+
+.expression > div.form > div
+{
+    float: left;
+    margin-right: 4px;
+    width: 100px;
+}
+
+.expression > div > p {
+    clear: both;
+}
+
+.expression select
+{
+    width: 80px;
+}
+
+.expression .form input[type="text"] {
+    width: 70px;
+}
+
+.expression .clear {
+    clear: both;
+}
+
+.expression .day-of-week > div {
+    width: 240px;
+}
+.expression .day-of-week > div > label {
+    float: left;
+    width: 60px;
+} 
+
+.expression .form {
+    margin-bottom: 60px;
+}
+
+.expression .types {
+    margin-bottom: 14px;
+}
+
+.expression .types li {
+    float: left;
+    margin-right: 20px;
+}
+
+.occurrences ol {
+    list-style-type: decimal-leading-zero;
+    margin-left: 40px;
+}
+

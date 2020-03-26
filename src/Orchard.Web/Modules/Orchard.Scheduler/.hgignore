@@ -1,0 +1,20 @@
+syntax: glob
+obj/Debug/Orchard.Scheduler.pdb
+obj/Debug/Orchard.Scheduler.dll
+obj/Debug/Orchard.Scheduler.csprojResolveAssemblyReference.cache
+obj/Debug/Orchard.Scheduler.csproj.FileListAbsolute.txt
+obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+bin/Orchard.Scheduler.pdb
+bin/Orchard.Scheduler.dll
+bin/Orchard.Rules.pdb
+bin/Orchard.Rules.dll
+bin/Orchard.Framework.pdb
+bin/Orchard.Framework.dll
+bin/Orchard.Forms.pdb
+bin/Orchard.Forms.dll
+bin/Orchard.Core.pdb
+bin/Orchard.Core.dll
+bin/NCrontab.pdb
+bin/NCrontab.dll
+Orchard.Scheduler.v11.suo
+Orchard.Scheduler.csproj.user

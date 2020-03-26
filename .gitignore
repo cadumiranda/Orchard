@@ -159,7 +159,6 @@ $RECYCLE.BIN/
 # Orchard specifics
 # =========================
 
-App_Data/
 glob:*.user
 *.patch
 *.hg

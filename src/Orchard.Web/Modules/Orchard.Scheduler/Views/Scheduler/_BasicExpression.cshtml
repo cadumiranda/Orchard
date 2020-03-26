@@ -1,0 +1,70 @@
+﻿@model Orchard.Scheduler.ViewModels.ExpressionForm
+@{
+    var minutes = Enumerable.Range(0, 60);
+    var hours = Enumerable.Range(0, 24).Select(x =>
+    {
+        return new SelectListItem { Text = x.ToString(), Value = x.ToString() };
+    }).ToList();
+
+    var days = Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>().Select(x =>
+    {
+        return new SelectListItem { Text = x.ToString().Substring(0, 3).ToUpper(), Value = ((int)x).ToString() };
+    }).ToList();
+    days.Add(new SelectListItem { Text = T("MON-FRI").Text, Value = "1-5" });
+
+    var daysInMonth = Enumerable.Range(1, 31);
+
+    var months = new[]
+        {
+            new SelectListItem { Text = T("JAN").Text, Value = "1" },
+            new SelectListItem { Text = T("FEB").Text, Value = "2" },
+            new SelectListItem { Text = T("MAR").Text, Value = "3" },
+            new SelectListItem { Text = T("APR").Text, Value = "4" },
+            new SelectListItem { Text = T("MAY").Text, Value = "5" },
+            new SelectListItem { Text = T("JUN").Text, Value = "6" },
+            new SelectListItem { Text = T("JUL").Text, Value = "7" },
+            new SelectListItem { Text = T("AUG").Text, Value = "8" },
+            new SelectListItem { Text = T("SEP").Text, Value = "9" },
+            new SelectListItem { Text = T("OCT").Text, Value = "10" },
+            new SelectListItem { Text = T("NOV").Text, Value = "11" },
+            new SelectListItem { Text = T("DEC").Text, Value = "12" }
+        };
+}
+<div>
+    @Html.LabelFor(m => m.Minute, T("Minute"))
+    <div class="minute">                
+        @Html.DropDownListFor(m => m.Minute, new SelectList(minutes, Model.Minute))
+    </div>
+</div>
+<div>
+    @Html.LabelFor(m => m.Hour, T("Hour"))
+    <div class="hour">                
+        @Html.DropDownListFor(m => m.Hour, new SelectList(hours, "Value", "Text", Model.Hour), "")
+    </div>
+</div>        
+<div>
+    @Html.LabelFor(m => m.DayOfMonth, T("Day of Month"))
+    <div class="day-of-month">                
+        @Html.DropDownListFor(m => m.DayOfMonth, new SelectList(daysInMonth, Model.DayOfMonth), "")
+    </div>
+</div>
+<div>
+    @Html.LabelFor(m => m.Month, T("Month"))
+    <div class="day">                
+        @Html.DropDownListFor(m => m.Month, new SelectList(months, "Value", "Text", Model.Month), "")
+    </div>
+</div>
+<div class="day-of-week">
+    @Html.LabelFor(m => m.DayOfWeek, T("Day of Week"))
+    <div>                
+        @for(int i = 0; i < Model.Days.Count; i++)
+        {
+            <label>
+                @T(Model.Days[i].Text)
+                @Html.CheckBoxFor(m => Model.Days[i].Selected)
+                @Html.HiddenFor(m => Model.Days[i].Value)
+            </label>
+        }
+    </div>
+</div>
+

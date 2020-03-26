@@ -1,0 +1,120 @@
+﻿@model Orchard.Scheduler.ViewModels.SchedulerCreateViewModel
+@{
+    Script.Require("jQueryUI_DatePicker");
+    //Style.Require("jQueryUI_DatePicker");
+    //Script.Require("jQueryUI_TimePicker");
+    //Style.Require("jQueryUI_TimePicker");
+        
+    Style.Include("scheduler.css");
+    Layout.Title = T("{0} Schedule", Request.RequestContext.RouteData.Values["action"]);
+}
+
+@using (Html.BeginFormAntiForgeryPost())
+{
+    @Html.ValidationSummary()
+
+    <fieldset>
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @class = "textMedium" })
+        <span class="hint">@T("The name of the Schedule")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.LabelFor(m => m.Start.Date, T("Start date / time"))
+        @Html.EditorFor(m => m.Start)
+        <span class="hint">@T("The date after which the first occurrence of the Schedule will occur")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.LabelFor(m => m.End.Date, T("End date / time"))
+        @Html.EditorFor(m => m.End)
+        <span class="hint">@T("The date before which the last occurrence of the Schedule will occur")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.LabelFor(m => m.Signals, T("Signal(s) to trigger"))
+        @Html.EditorFor(m => m.Signals)
+        <span class="hint">@T("A comma seperated list of workflow signals to trigger")</span>
+    </fieldset>
+    
+    <fieldset class="expression">
+        <legend>
+            <ul class="types">
+                <li><label>@T("Basic") @Html.RadioButtonFor(m => m.ExpressionType, Orchard.Scheduler.Models.ExpressionType.Basic)</label></li>
+                <li><label>@T("Advanced") @Html.RadioButtonFor(m => m.ExpressionType, Orchard.Scheduler.Models.ExpressionType.Advanced)</label></li>
+            </ul>            
+        </legend>
+        <div class="form">
+            @switch(Model.ExpressionType)
+            {
+                case Orchard.Scheduler.Models.ExpressionType.Basic:
+                    @Html.Partial("_BasicExpression", Model.Form);
+                    break;
+                case Orchard.Scheduler.Models.ExpressionType.Advanced:
+                    @Html.Partial("_AdvancedExpression", Model.Form);
+                    break;
+            }
+        </div>
+        <div class="clear">
+            <button class="next-occurrences primaryAction" type="button">@T("Show next occurrences")</button>
+            <div class="occurrences"></div>
+        </div>
+    </fieldset>
+    
+    <fieldset>
+        <button class="primaryAction" type="submit">@T("Save")</button>
+        @if (!Model.Enabled) {
+            <button class="primaryAction save-and-enable" type="submit">@T("Save and Enable")</button>
+        }
+        @Html.HiddenFor(m => m.Enabled)
+        @Html.HiddenFor(m => m.Id)
+    </fieldset>       
+}
+
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            $(".next-occurrences").click(function () {
+                var form = $(this).closest("form").serializeObject();
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("NextOccurrences")?" + $("form").serialize(),
+                    data: form,
+                    dataType: "html",
+                    success: function(html) {
+                        $(".occurrences").html(html);
+                    }
+                });
+            });
+            $(".save-and-enable").click(function() {
+                $("#@Html.FieldIdFor(m => m.Enabled)").val(true);
+            });
+            $(".expression .types input[type='radio']").click(function (e) {
+                var value = $(this).val();
+                $.ajax({
+                    url: "@Url.Action("ExpressionForm")/@Model.Id?type=" + value,
+                    dataType: "html",
+                    success: function (html) {
+                        $(".expression .form").html(html);
+                    }
+                });
+            });
+        });
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    </script>
+}

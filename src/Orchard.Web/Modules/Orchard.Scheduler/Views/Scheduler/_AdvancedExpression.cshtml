@@ -1,0 +1,35 @@
+﻿@model Orchard.Scheduler.ViewModels.ExpressionForm
+<p>
+    @T("Click <a target='_blank' href='http://www.raboof.com/projects/ncrontab/'>here</a> for information on constructing complex cron-like expressions")
+</p>
+<div>
+    @Html.LabelFor(m => m.Minute, T("Minute"))
+    <div class="minute">                
+        @Html.TextBoxFor(m => m.Minute)
+    </div>
+</div>
+<div>
+    @Html.LabelFor(m => m.Hour, T("Hour"))
+    <div class="hour">                
+        @Html.TextBoxFor(m => m.Hour)
+    </div>
+</div>        
+<div>
+    @Html.LabelFor(m => m.DayOfMonth, T("Day of Month"))
+    <div class="day-of-month">                
+        @Html.TextBoxFor(m => m.DayOfMonth)
+    </div>
+</div>
+<div>
+    @Html.LabelFor(m => m.Month, T("Month"))
+    <div class="day">                
+        @Html.TextBoxFor(m => m.Month)
+    </div>
+</div>
+<div>
+    @Html.LabelFor(m => m.DayOfWeek, T("Day of Week"))
+    <div class="day">                
+        @Html.TextBoxFor(m => m.DayOfWeek)
+    </div>
+</div>
+
